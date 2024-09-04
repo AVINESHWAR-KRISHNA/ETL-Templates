@@ -22,7 +22,9 @@ TASK_MAX_FAILURES = "4"  # Set task failure retry count
 SPECULATION_ENABLED = "true"  # Enable speculative execution
 SPECULATION_QUANTILE = "0.75"  # Set speculative threshold
 SPECULATION_MULTIPLIER = "1.5"  # Set speculative multiplier
-
+SQL_DEBUG_MAX_STRING_LENGTH = "1000"  # Set SQL debug max string length
+EVENTLOG_GCMETRICS_OLD = "G1 Old Generation, G1 Concurrent GC"  # Set eventlog GC metrics
+EVENTLOG_GCMETRICS_YOUNG = "G1 Young Generation, G1 Concurrent GC"  # Set eventlog GC metrics
 
 from pyspark.sql import SparkSession
 
@@ -51,6 +53,9 @@ try:
         .config("spark.speculation", SPECULATION_ENABLED) \
         .config("spark.speculation.quantile", SPECULATION_QUANTILE) \
         .config("spark.speculation.multiplier", SPECULATION_MULTIPLIER) \
+        .config("spark.sql.debug.maxToStringLength", SQL_DEBUG_MAX_STRING_LENGTH) \
+        .config("spark.eventLog.gcMetrics", EVENTLOG_GCMETRICS_OLD) \
+        .config("spark.eventLog.gcMetrics", EVENTLOG_GCMETRICS_YOUNG) \
         .getOrCreate()
 
     # Your Spark operations go here
